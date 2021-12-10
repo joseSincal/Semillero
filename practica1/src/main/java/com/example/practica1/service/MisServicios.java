@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class MisServicios {
 	static String urlApple = "https://itunes.apple.com/search?term=";
 	static String urlTV = "https://api.tvmaze.com/search/people?q=";
+	static String urlTVPersonalized = "https://api.tvmaze.com/search/shows?q=";
 	
 	@Autowired
 	RestTemplate restTemplate;
@@ -86,8 +87,72 @@ public class MisServicios {
 			name = people.path("name");
 			
 			data.setName(name.toString().replace("\"", ""));
-			data.setTrackName(null);
 			data.setType("People");
+			data.setService("API TVmaze");
+			data.setUrl(url);
+			
+			info.add(data);
+		}
+		
+		return info;
+	}
+	
+	@GetMapping(path="/find/personalized/{name}")
+	public List<dataApi> Personalized(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException {
+		List<dataApi> info = new ArrayList<dataApi>();
+		
+		info = getDataApplePersonalized(urlApple + name);
+		info.addAll(getDataTVPersonalized(urlTVPersonalized + name));
+		
+		return info;
+	}
+	
+	private List<dataApi> getDataApplePersonalized(String url) throws JsonMappingException, JsonProcessingException {
+		List<dataApi> info = new ArrayList<dataApi>();
+		dataApi data;
+		
+		ResponseEntity<String> response = restTemplate.getForEntity(url + "&entity=musicVideo", String.class);
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode root = mapper.readTree(response.getBody());
+		JsonNode results = root.path("results");
+		JsonNode artistName, trackName, type;
+		
+		for(JsonNode result :results) {
+			data  = new dataApi();
+			artistName = result.path("artistName");
+			trackName = result.path("trackName");
+			type = result.path("wrapperType");
+			
+			data.setName(artistName.toString().replace("\"", ""));
+			data.setTrackName(trackName.toString().replace("\"", ""));
+			data.setType(type.toString().replace("\"", ""));
+			data.setService("API iTunes");
+			data.setUrl(url + "&entity=musicVideo");
+			
+			info.add(data);
+		}
+		
+		return info;
+	}
+	
+	private List<dataApi> getDataTVPersonalized(String url) throws JsonMappingException, JsonProcessingException {
+		List<dataApi> info = new ArrayList<dataApi>();
+		dataApi data;
+
+		ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode root = mapper.readTree(response.getBody());
+		JsonNode show, name, type;
+		
+		for(JsonNode result :root) {
+			data  = new dataApi();
+			
+			show = result.path("show");
+			name = show.path("name");
+			type = show.path("type");
+			
+			data.setName(name.toString().replace("\"", ""));
+			data.setType(type.toString().replace("\"", ""));
 			data.setService("API TVmaze");
 			data.setUrl(url);
 			

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prac2.practica2.dto.ClienteDto;
 import com.prac2.practica2.entity.Cliente;
 import com.prac2.practica2.repository.ClienteRepository;
 
@@ -35,16 +36,33 @@ public class ClienteService {
 	}
 	
 	@PostMapping(path = "/guardar")
-	public Cliente guardar(@RequestBody Cliente cliente) {
+	public Cliente guardar(@RequestBody ClienteDto clienteDto) {
+		Cliente cliente = convertirClienteDtoACliente(clienteDto);
 		return clienteRepository.save(cliente);
 	}
-	
+
 	@DeleteMapping(path = "/eliminar/{dni}")
 	public void eliminar(@PathVariable int dni) {
 		Optional<Cliente> cliente = clienteRepository.findById(dni);
 		if(cliente.isPresent()) {
 			clienteRepository.delete(cliente.get());
 		}
+	}
+	
+	private Cliente convertirClienteDtoACliente(ClienteDto clienteDto) {
+		Cliente cliente = new Cliente();
+		cliente.setDniCl(clienteDto.getDniCl());
+		cliente.setNombreCl(clienteDto.getNombreCl());
+		cliente.setApellido1(clienteDto.getApellido1());
+		cliente.setApellido2(clienteDto.getApellido2());
+		cliente.setClaseVia(clienteDto.getClaseVia());
+		cliente.setNombreVia(clienteDto.getNombreVia());
+		cliente.setNumeroVia(clienteDto.getNumeroVia());
+		cliente.setCodPostal(clienteDto.getCodPostal());
+		cliente.setCiudad(clienteDto.getCiudad());
+		cliente.setTelefono(clienteDto.getTelefono());
+		cliente.setObservacion(clienteDto.getObservacion());
+		return cliente;
 	}
 
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prac2.practica2.dto.CompaniaDto;
 import com.prac2.practica2.entity.Compania;
 import com.prac2.practica2.repository.CompaniaRepository;
 
@@ -30,7 +31,8 @@ public class CompaniaService {
 	}
 	
 	@PostMapping(path = "/guardar")
-	public Compania guardar(@RequestBody Compania compania) {
+	public Compania guardar(@RequestBody CompaniaDto companiaDto) {
+		Compania compania = convertirCompaniaDtoACompania(companiaDto);
 		return companiaRepository.save(compania);
 	}
 	
@@ -41,5 +43,18 @@ public class CompaniaService {
 			companiaRepository.delete(compania.get());
 		}
 	}
+	
+	private Compania convertirCompaniaDtoACompania(CompaniaDto companiaDto) {
+		Compania compania = new Compania();
+		compania.setNombreCompania(companiaDto.getNombreCompania());
+		compania.setClaseVia(companiaDto.getClaseVia());
+		compania.setNumeroVia(companiaDto.getNumeroVia());
+		compania.setCodPostal(companiaDto.getCodPostal());
+		compania.setTelefonoContratacion(companiaDto.getTelefonoContratacion());
+		compania.setTelefonoSiniestro(companiaDto.getTelefonoSiniestro());
+		compania.setNota(companiaDto.getNota());
+		return compania;
+	}
+
 	
 }

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prac2.practica2.dto.SiniestroDto;
 import com.prac2.practica2.entity.Perito;
 import com.prac2.practica2.entity.Siniestro;
 import com.prac2.practica2.repository.PeritoRepository;
@@ -61,10 +62,11 @@ public class SiniestroService {
 	}
 	
 	@PostMapping(path = "/guardar")
-	public Siniestro guardar(@RequestBody Siniestro siniestro) {
+	public Siniestro guardar(@RequestBody SiniestroDto siniestroDto) {
+		Siniestro siniestro = convertirSiniestroDtoASiniestro(siniestroDto);
 		return siniestroRepository.save(siniestro);
 	}
-	
+
 	@DeleteMapping(path = "/eliminar/{id}")
 	public void eliminar(@PathVariable int id) {
 		Optional<Siniestro> siniestro = siniestroRepository.findById(id);
@@ -85,5 +87,16 @@ public class SiniestroService {
 		}
 		
 		return "No se pudo realizar la operación";
+	}
+	
+	private Siniestro convertirSiniestroDtoASiniestro(SiniestroDto siniestroDto) {
+		Siniestro siniestro = new Siniestro();
+		siniestro.setIdSiniestro(siniestroDto.getIdSiniestro());
+		siniestro.setFechaSiniestro(siniestroDto.getFechaSiniestro());
+		siniestro.setCausa(siniestroDto.getCausa());
+		siniestro.setAceptado(siniestroDto.getAceptado());
+		siniestro.setIndemnizacion(siniestroDto.getIndemnizacion());
+		siniestro.setNumeroPoliza(siniestroDto.getNumeroPoliza());
+		return siniestro;
 	}
 }

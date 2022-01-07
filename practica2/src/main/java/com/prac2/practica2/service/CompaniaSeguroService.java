@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prac2.practica2.dto.CompaniaSeguroDto;
 import com.prac2.practica2.entity.CompaniaSeguro;
 import com.prac2.practica2.repository.CompaniaSeguroRepository;
 
@@ -28,15 +29,24 @@ public class CompaniaSeguroService {
 	}
 	
 	@PostMapping(path = "/guardar")
-	public CompaniaSeguro guardar(@RequestBody CompaniaSeguro companiaSeguro) {
+	public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto companiaSeguroDto) {
+		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroDtoACompaniaSeguro(companiaSeguroDto);
 		return companiaSeguroRepository.save(companiaSeguro);
 	}
-	
+
 	@DeleteMapping(path = "/eliminar/{id}")
 	public void eliminar(@PathVariable int id) {
 		Optional<CompaniaSeguro> companiaSeguro = companiaSeguroRepository.findById(id);
 		if(companiaSeguro.isPresent()) {
 			companiaSeguroRepository.delete(companiaSeguro.get());
 		}
+	}
+	
+	private CompaniaSeguro convertirCompaniaSeguroDtoACompaniaSeguro(CompaniaSeguroDto companiaSeguroDto) {
+		CompaniaSeguro companiaSeguro = new CompaniaSeguro();
+		companiaSeguro.setId(companiaSeguroDto.getId());
+		companiaSeguro.setNumeroPoliza(companiaSeguroDto.getNumeroPoliza());
+		companiaSeguro.setNombreCompania(companiaSeguroDto.getNombreCompania());
+		return companiaSeguro;
 	}
 }

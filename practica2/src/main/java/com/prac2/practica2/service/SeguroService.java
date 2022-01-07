@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.prac2.practica2.dto.SeguroDto;
 import com.prac2.practica2.entity.Seguro;
 import com.prac2.practica2.repository.SeguroRepository;
 
@@ -30,15 +31,28 @@ public class SeguroService {
 	}
 	
 	@PostMapping(path = "/guardar")
-	public Seguro guardar(@RequestBody Seguro seguro) {
+	public Seguro guardar(@RequestBody SeguroDto seguroDto) {
+		Seguro seguro = convertirSerguroDtoASeguro(seguroDto);
 		return seguroRepository.save(seguro);
 	}
-	
+
 	@DeleteMapping(path = "/eliminar/{poliza}")
 	public void eliminar(@PathVariable int poliza) {
 		Optional<Seguro> seguro = seguroRepository.findById(poliza);
 		if(seguro.isPresent()) {
 			seguroRepository.delete(seguro.get());
 		}
+	}	
+	
+	private Seguro convertirSerguroDtoASeguro(SeguroDto seguroDto) {
+		Seguro seguro = new Seguro();
+		seguro.setNumeroPoliza(seguroDto.getNumeroPoliza());
+		seguro.setRamo(seguroDto.getRamo());
+		seguro.setFechaInicio(seguroDto.getFechaInicio());
+		seguro.setFechaVencimiento(seguroDto.getFechaVencimiento());
+		seguro.setCondicionParticular(seguroDto.getCondicionParticular());
+		seguro.setObservacion(seguroDto.getObservacion());
+		seguro.setDniCl(seguroDto.getDniCl());
+		return seguro;
 	}
 }

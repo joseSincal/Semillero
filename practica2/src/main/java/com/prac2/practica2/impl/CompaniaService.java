@@ -1,42 +1,36 @@
-package com.prac2.practica2.service;
+package com.prac2.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.prac2.practica2.dto.CompaniaDto;
 import com.prac2.practica2.entity.Compania;
 import com.prac2.practica2.repository.CompaniaRepository;
+import com.prac2.practica2.ws.CompaniaInterface;
 
-@RestController
-@RequestMapping(path = "/compania")
-@CrossOrigin
-public class CompaniaService {
+@Component
+public class CompaniaService implements CompaniaInterface {
 
 	@Autowired
 	CompaniaRepository companiaRepository;
 	
-	@GetMapping(path = "/buscar")
+	@Override
 	public List<Compania> buscar() {
 		return companiaRepository.findAll();
 	}
 	
-	@PostMapping(path = "/guardar")
+	@Override
 	public Compania guardar(@RequestBody CompaniaDto companiaDto) {
 		Compania compania = convertirCompaniaDtoACompania(companiaDto);
 		return companiaRepository.save(compania);
 	}
 	
-	@DeleteMapping(path = "/eliminar/{nombre}")
+	@Override
 	public void eliminar(@PathVariable String nombre) {
 		Optional<Compania> compania = companiaRepository.findById(nombre);
 		if(compania.isPresent()) {
@@ -56,5 +50,4 @@ public class CompaniaService {
 		return compania;
 	}
 
-	
 }

@@ -1,47 +1,46 @@
-package com.prac2.practica2.service;
+package com.prac2.practica2.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.prac2.practica2.dto.ClienteDto;
 import com.prac2.practica2.entity.Cliente;
 import com.prac2.practica2.repository.ClienteRepository;
+import com.prac2.practica2.service.CatalogoService;
+import com.prac2.practica2.ws.ClienteServiceInterface;
 
-@RestController
-@RequestMapping(path = "/cliente")
-@CrossOrigin
-public class ClienteService {
+@Component
+public class ClienteService implements ClienteServiceInterface {
 	
 	@Autowired
 	ClienteRepository clienteRepository;
 	
-	@GetMapping(path = "/buscar")
+	@Autowired
+	CatalogoService catalogoService;
+	
+	@Override
 	public List<Cliente> buscar() {
 		return clienteRepository.findAll();
 	}
 	
-	@GetMapping(path = "/buscar/por/apellidos/{apellido}")
+	@Override
 	public List<Cliente> buscar(@PathVariable String apellido) {
 		return clienteRepository.findByApellido1OrApellido2(apellido, apellido);
 	}
 	
-	@PostMapping(path = "/guardar")
+	@Override
 	public Cliente guardar(@RequestBody ClienteDto clienteDto) {
 		Cliente cliente = convertirClienteDtoACliente(clienteDto);
 		return clienteRepository.save(cliente);
 	}
 
-	@DeleteMapping(path = "/eliminar/{dni}")
+	@Override
 	public void eliminar(@PathVariable int dni) {
 		Optional<Cliente> cliente = clienteRepository.findById(dni);
 		if(cliente.isPresent()) {
@@ -63,6 +62,31 @@ public class ClienteService {
 		cliente.setTelefono(clienteDto.getTelefono());
 		cliente.setObservacion(clienteDto.getObservacion());
 		return cliente;
+	}
+
+	@Override
+	public void guardarCliente(ClienteDto clienteDto) {
+		catalogoService.guardarCliente(clienteDto);
+	}
+
+	@Override
+	public void cambiarNombreCliente(Integer dniCl, String nombre) {
+		catalogoService.cambiarNombreCliente(dniCl, nombre);
+	}
+
+	@Override
+	public void eliminarCliente(Integer dniCl) {
+		catalogoService.eliminarCliente(dniCl);
+	}
+	
+	@Override
+	public List<Map<String, Object>> buscarClientes() {
+		return catalogoService.buscarClientes();
+	}
+
+	@Override
+	public List<Map<String, Object>> buscarCliente(Integer dniCl) {
+		return catalogoService.buscarCliente(dniCl);
 	}
 
 }

@@ -1,40 +1,36 @@
-package com.prac2.practica2.service;
+package com.prac2.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.prac2.practica2.dto.CompaniaSeguroDto;
 import com.prac2.practica2.entity.CompaniaSeguro;
 import com.prac2.practica2.repository.CompaniaSeguroRepository;
+import com.prac2.practica2.ws.CompaniaSeguroInterface;
 
-@RestController
-@RequestMapping(path = "/companiaSeguro")
-public class CompaniaSeguroService {
+@Component
+public class CompaniaSeguroService implements CompaniaSeguroInterface {
 
 	@Autowired
 	CompaniaSeguroRepository companiaSeguroRepository;
 	
-	@GetMapping(path = "/buscar")
+	@Override
 	public List<CompaniaSeguro> buscar() {
 		return companiaSeguroRepository.findAll();
 	}
 	
-	@PostMapping(path = "/guardar")
+	@Override
 	public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto companiaSeguroDto) {
 		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroDtoACompaniaSeguro(companiaSeguroDto);
 		return companiaSeguroRepository.save(companiaSeguro);
 	}
 
-	@DeleteMapping(path = "/eliminar/{id}")
+	@Override
 	public void eliminar(@PathVariable int id) {
 		Optional<CompaniaSeguro> companiaSeguro = companiaSeguroRepository.findById(id);
 		if(companiaSeguro.isPresent()) {

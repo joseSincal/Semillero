@@ -1,60 +1,56 @@
-package com.prac2.practica2.service;
+package com.prac2.practica2.impl;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.prac2.practica2.dto.PeritoDto;
 import com.prac2.practica2.entity.Perito;
 import com.prac2.practica2.repository.PeritoRepository;
+import com.prac2.practica2.ws.PeritoInterface;
 
-@RestController
-@RequestMapping(path = "/perito") 
-public class PeritoService {
+@Component
+public class PeritoService implements PeritoInterface {
 	
 	@Autowired
 	PeritoRepository peritoRepository;
 	
-	@GetMapping(path = "/buscar")
+	@Override
 	public List<Perito> buscar() {
 		return peritoRepository.findAll();
 	}
 	
-	@GetMapping(path = "/buscar/por/apellidos/{apellido}/y/ciudad/{ciudad}")
+	@Override
 	public List<Perito> buscar(@PathVariable String apellido, @PathVariable String ciudad) {
 		return peritoRepository.findByApellidoPerito1OrApellidoPerito2AndCiudad(apellido, apellido, ciudad);
 	}
 	
-	@GetMapping(path = "/buscar/por/apellido1/contiene/{apellido}")
+	@Override
 	public List<Perito> buscar(@PathVariable String apellido) {
 		return peritoRepository.findByApellidoPerito1Containing(apellido);
 	}
 	
-	@GetMapping(path = "/buscar/por/nombre/comienza/con/{inicial}")
+	@Override
 	public List<Perito> buscarInicialNombre(@PathVariable String inicial) {
 		return peritoRepository.findByNombrePeritoStartingWith(inicial);
 	}
 	
-	@GetMapping(path = "/buscar/por/numeroVia/{numero}")
+	@Override
 	public List<Perito> buscarNumeroVia(@PathVariable Integer numero) {
 		return peritoRepository.findByNumeroViaOrderByNombrePeritoDesc(numero);
 	}
 	
-	@PostMapping(path = "/guardar")
+	@Override
 	public Perito guardar(@RequestBody PeritoDto peritoDto) {
 		Perito perito = convertirPeritoDtoAPerito(peritoDto);
 		return peritoRepository.save(perito);
 	}
 
-	@DeleteMapping(path = "/eliminar/{dni}")
+	@Override
 	public void eliminar(@PathVariable int dni) {
 		Optional<Perito> perito = peritoRepository.findById(dni);
 		if(perito.isPresent()) {

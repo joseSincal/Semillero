@@ -5,8 +5,11 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +19,15 @@ public class Cliente implements Serializable {
 	private static final long serialVersionUID = -734125466730897367L;
 	
 	@Id
+	@GeneratedValue(
+			strategy = GenerationType.SEQUENCE,
+			generator = "CLI_SEQ"
+	)
+	@SequenceGenerator(
+			sequenceName = "cliente_seq",
+			allocationSize = 1,
+			name = "CLI_SEQ"
+	)
 	@Column(name = "DNI_CL")
 	private Integer dniCl;
 	

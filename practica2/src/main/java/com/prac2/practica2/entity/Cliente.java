@@ -18,15 +18,15 @@ public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = -734125466730897367L;
 	
-	@Id
-	@GeneratedValue(
-			strategy = GenerationType.SEQUENCE,
-			generator = "CLI_SEQ"
-	)
 	@SequenceGenerator(
 			sequenceName = "cliente_seq",
 			allocationSize = 1,
 			name = "CLI_SEQ"
+	)
+	@Id
+	@GeneratedValue(
+			strategy = GenerationType.SEQUENCE,
+			generator = "CLI_SEQ"
 	)
 	@Column(name = "DNI_CL")
 	private Integer dniCl;

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.prac2.practica2.dto.ProcedimientoDto;
 
 @RestController
-@RequestMapping("/procedimiento")
+@RequestMapping(path = "/procedimiento")
 @CrossOrigin
 public interface ProcedimientoServiceInterface {
 

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.prac2.practica2.entity.Siniestro;
+import com.library.entity.prac2user.Siniestro;
 
 @Repository("siniestroRepository")
 public interface SiniestroRepository extends JpaRepository<Siniestro, Integer> {

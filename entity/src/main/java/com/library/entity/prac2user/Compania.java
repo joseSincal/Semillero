@@ -1,4 +1,4 @@
-package com.prac2.practica2.entity;
+package com.library.entity.prac2user;
 
 import java.io.Serializable;
 import java.util.List;

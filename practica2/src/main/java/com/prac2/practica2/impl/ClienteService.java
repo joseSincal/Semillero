@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.library.entity.prac2user.Cliente;
 import com.prac2.practica2.dto.ClienteDto;
-import com.prac2.practica2.entity.Cliente;
 import com.prac2.practica2.repository.ClienteRepository;
 import com.prac2.practica2.service.CatalogoService;
 import com.prac2.practica2.ws.ClienteServiceInterface;

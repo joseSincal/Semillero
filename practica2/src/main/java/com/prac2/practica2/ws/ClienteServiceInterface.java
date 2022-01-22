@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.library.entity.prac2user.Cliente;
 import com.prac2.practica2.dto.ClienteDto;
-import com.prac2.practica2.entity.Cliente;
 
 @RestController
 @RequestMapping(path = "/cliente")

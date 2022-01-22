@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.library.entity.prac2user.Perito;
 import com.prac2.practica2.dto.PeritoDto;
-import com.prac2.practica2.entity.Perito;
 
 @RestController
 @RequestMapping(path = "/perito")

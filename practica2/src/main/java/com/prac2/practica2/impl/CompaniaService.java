@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.library.entity.prac2user.Compania;
 import com.prac2.practica2.dto.CompaniaDto;
-import com.prac2.practica2.entity.Compania;
 import com.prac2.practica2.repository.CompaniaRepository;
 import com.prac2.practica2.ws.CompaniaInterface;
 

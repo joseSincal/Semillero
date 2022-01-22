@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.prac2.practica2.entity.Perito;
+import com.library.entity.prac2user.Perito;
 
 @Repository("peritoRepository")
 public interface PeritoRepository extends JpaRepository<Perito, Integer> {

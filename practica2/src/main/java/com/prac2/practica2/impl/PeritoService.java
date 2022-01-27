@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.entity.prac2user.Perito;
 import com.prac2.practica2.dto.PeritoDto;
@@ -25,33 +23,33 @@ public class PeritoService implements PeritoInterface {
 	}
 	
 	@Override
-	public List<Perito> buscar(@PathVariable String apellido, @PathVariable String ciudad) {
+	public List<Perito> buscar(String apellido, String ciudad) {
 		return peritoRepository.findByApellidoPerito1OrApellidoPerito2AndCiudad(apellido, apellido, ciudad);
 	}
 	
 	@Override
-	public List<Perito> buscar(@PathVariable String apellido) {
+	public List<Perito> buscar(String apellido) {
 		return peritoRepository.findByApellidoPerito1Containing(apellido);
 	}
 	
 	@Override
-	public List<Perito> buscarInicialNombre(@PathVariable String inicial) {
+	public List<Perito> buscarInicialNombre(String inicial) {
 		return peritoRepository.findByNombrePeritoStartingWith(inicial);
 	}
 	
 	@Override
-	public List<Perito> buscarNumeroVia(@PathVariable Integer numero) {
+	public List<Perito> buscarNumeroVia(Integer numero) {
 		return peritoRepository.findByNumeroViaOrderByNombrePeritoDesc(numero);
 	}
 	
 	@Override
-	public Perito guardar(@RequestBody PeritoDto peritoDto) {
+	public Perito guardar(PeritoDto peritoDto) {
 		Perito perito = convertirPeritoDtoAPerito(peritoDto);
 		return peritoRepository.save(perito);
 	}
 
 	@Override
-	public void eliminar(@PathVariable int dni) {
+	public void eliminar(int dni) {
 		Optional<Perito> perito = peritoRepository.findById(dni);
 		if(perito.isPresent()) {
 			peritoRepository.delete(perito.get());

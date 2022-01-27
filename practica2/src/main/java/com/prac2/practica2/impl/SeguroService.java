@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.entity.prac2user.Seguro;
 import com.prac2.practica2.dto.SeguroDto;
@@ -25,13 +23,13 @@ public class SeguroService implements SeguroInterface {
 	}
 	
 	@Override
-	public Seguro guardar(@RequestBody SeguroDto seguroDto) {
+	public Seguro guardar(SeguroDto seguroDto) {
 		Seguro seguro = convertirSerguroDtoASeguro(seguroDto);
 		return seguroRepository.save(seguro);
 	}
 
 	@Override
-	public void eliminar(@PathVariable int poliza) {
+	public void eliminar(int poliza) {
 		Optional<Seguro> seguro = seguroRepository.findById(poliza);
 		if(seguro.isPresent()) {
 			seguroRepository.delete(seguro.get());

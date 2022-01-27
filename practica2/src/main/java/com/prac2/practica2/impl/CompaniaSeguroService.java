@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.entity.prac2user.CompaniaSeguro;
 import com.prac2.practica2.dto.CompaniaSeguroDto;
@@ -25,13 +23,13 @@ public class CompaniaSeguroService implements CompaniaSeguroInterface {
 	}
 	
 	@Override
-	public CompaniaSeguro guardar(@RequestBody CompaniaSeguroDto companiaSeguroDto) {
+	public CompaniaSeguro guardar(CompaniaSeguroDto companiaSeguroDto) {
 		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroDtoACompaniaSeguro(companiaSeguroDto);
 		return companiaSeguroRepository.save(companiaSeguro);
 	}
 
 	@Override
-	public void eliminar(@PathVariable int id) {
+	public void eliminar(int id) {
 		Optional<CompaniaSeguro> companiaSeguro = companiaSeguroRepository.findById(id);
 		if(companiaSeguro.isPresent()) {
 			companiaSeguroRepository.delete(companiaSeguro.get());

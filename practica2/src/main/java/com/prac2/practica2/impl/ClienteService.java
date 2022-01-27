@@ -6,8 +6,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.entity.prac2user.Cliente;
 import com.prac2.practica2.dto.ClienteDto;
@@ -30,18 +28,18 @@ public class ClienteService implements ClienteServiceInterface {
 	}
 	
 	@Override
-	public List<Cliente> buscar(@PathVariable String apellido) {
+	public List<Cliente> buscar(String apellido) {
 		return clienteRepository.findByApellido1OrApellido2(apellido, apellido);
 	}
 	
 	@Override
-	public Cliente guardar(@RequestBody ClienteDto clienteDto) {
+	public Cliente guardar(ClienteDto clienteDto) {
 		Cliente cliente = convertirClienteDtoACliente(clienteDto);
 		return clienteRepository.save(cliente);
 	}
 
 	@Override
-	public void eliminar(@PathVariable int dni) {
+	public void eliminar(int dni) {
 		Optional<Cliente> cliente = clienteRepository.findById(dni);
 		if(cliente.isPresent()) {
 			clienteRepository.delete(cliente.get());

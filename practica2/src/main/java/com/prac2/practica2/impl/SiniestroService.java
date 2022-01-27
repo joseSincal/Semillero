@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.library.entity.prac2user.Perito;
 import com.library.entity.prac2user.Siniestro;
@@ -30,38 +28,38 @@ public class SiniestroService implements SiniestroInterface {
 	}
 	
 	@Override
-	public List<Siniestro> buscarAceptado(@PathVariable String estado) {
+	public List<Siniestro> buscarAceptado(String estado) {
 		return siniestroRepository.findByAceptadoLike(estado);
 	}
 	
 	@Override
-	public List<Siniestro> buscarIndemnizacion(@PathVariable Double cantidad) {
+	public List<Siniestro> buscarIndemnizacion(Double cantidad) {
 		return siniestroRepository.findByIndemnizacionLessThanEqual(cantidad);
 	}
 	
 	@Override
-	public List<Siniestro> buscarIndemnizacion(@PathVariable Double cantidad1, @PathVariable Double cantidad2) {
+	public List<Siniestro> buscarIndemnizacion(Double cantidad1, Double cantidad2) {
 		return siniestroRepository.findByIndemnizacionBetween(cantidad1, cantidad2);
 	}
 	
 	@Override
-	public List<Siniestro> buscarPoliza(@PathVariable Integer poliza) {
+	public List<Siniestro> buscarPoliza(Integer poliza) {
 		return siniestroRepository.findByNumeroPolizaOrderByIndemnizacionAsc(poliza);
 	}
 	
 	@Override
-	public List<Siniestro> buscarPoliza(@PathVariable String fecha, @PathVariable String estado) {
+	public List<Siniestro> buscarPoliza(String fecha, String estado) {
 		return siniestroRepository.findByFechaSiniestroLikeAndAceptadoEquals(fecha.replace("-", "/"), estado);
 	}
 	
 	@Override
-	public Siniestro guardar(@RequestBody SiniestroDto siniestroDto) {
+	public Siniestro guardar(SiniestroDto siniestroDto) {
 		Siniestro siniestro = convertirSiniestroDtoASiniestro(siniestroDto);
 		return siniestroRepository.save(siniestro);
 	}
 
 	@Override
-	public void eliminar(@PathVariable int id) {
+	public void eliminar(int id) {
 		Optional<Siniestro> siniestro = siniestroRepository.findById(id);
 		if(siniestro.isPresent()) {
 			siniestroRepository.delete(siniestro.get());
@@ -69,7 +67,7 @@ public class SiniestroService implements SiniestroInterface {
 	}
 	
 	@Override
-	public String agregarPerito(@PathVariable int id, @PathVariable int dni) {
+	public String agregarPerito(int id, int dni) {
 		Optional<Perito> perito = peritoRepository.findById(dni);
 		Optional<Siniestro> siniestro = siniestroRepository.findById(id);
 		

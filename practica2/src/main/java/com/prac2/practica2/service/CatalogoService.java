@@ -34,9 +34,10 @@ public class CatalogoService {
 	}
 	
 	public void cambiarNombreCliente(Integer dniCl, String nombre) {
-		String query = "update CLIENTE set NOMBRE_CL = :nombre where DNI_CL = :dniCL";
+		String query = "update CLIENTE set NOMBRE_CL = :nombre where DNI_CL = :dniCl";
 		SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-				.addValue(DNICL, dniCl).addValue("nombre", nombre);
+				.addValue(DNICL, dniCl)
+				.addValue("nombre", nombre);
 		namedParameterJdbcTemplate.update(query, sqlParameterSource);
 	}
 	

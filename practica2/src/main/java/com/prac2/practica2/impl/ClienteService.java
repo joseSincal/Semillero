@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -47,19 +48,8 @@ public class ClienteService implements ClienteServiceInterface {
 	}
 	
 	private Cliente convertirClienteDtoACliente(ClienteDto clienteDto) {
-		Cliente cliente = new Cliente();
-		cliente.setDniCl(clienteDto.getDniCl());
-		cliente.setNombreCl(clienteDto.getNombreCl());
-		cliente.setApellido1(clienteDto.getApellido1());
-		cliente.setApellido2(clienteDto.getApellido2());
-		cliente.setClaseVia(clienteDto.getClaseVia());
-		cliente.setNombreVia(clienteDto.getNombreVia());
-		cliente.setNumeroVia(clienteDto.getNumeroVia());
-		cliente.setCodPostal(clienteDto.getCodPostal());
-		cliente.setCiudad(clienteDto.getCiudad());
-		cliente.setTelefono(clienteDto.getTelefono());
-		cliente.setObservacion(clienteDto.getObservacion());
-		return cliente;
+		ModelMapper mp = new ModelMapper();
+		return mp.map(clienteDto, Cliente.class);
 	}
 
 	@Override

@@ -9,8 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "SEGURO")
+@Data
 public class Seguro implements Serializable {
 
 	private static final long serialVersionUID = 2773905565503025116L;
@@ -39,69 +42,5 @@ public class Seguro implements Serializable {
 	
 	@ManyToMany(mappedBy = "seguros")
 	private List<Compania> companias;
-
-	public Integer getNumeroPoliza() {
-		return numeroPoliza;
-	}
-
-	public void setNumeroPoliza(Integer numeroPoliza) {
-		this.numeroPoliza = numeroPoliza;
-	}
-
-	public String getRamo() {
-		return ramo;
-	}
-
-	public void setRamo(String ramo) {
-		this.ramo = ramo;
-	}
-
-	public String getFechaInicio() {
-		return fechaInicio;
-	}
-
-	public void setFechaInicio(String fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-
-	public String getFechaVencimiento() {
-		return fechaVencimiento;
-	}
-
-	public void setFechaVencimiento(String fechaVencimiento) {
-		this.fechaVencimiento = fechaVencimiento;
-	}
-
-	public String getCondicionParticular() {
-		return condicionParticular;
-	}
-
-	public void setCondicionParticular(String condicionParticular) {
-		this.condicionParticular = condicionParticular;
-	}
-
-	public String getObservacion() {
-		return observacion;
-	}
-
-	public void setObservacion(String observacion) {
-		this.observacion = observacion;
-	}
-
-	public Integer getDniCl() {
-		return dniCl;
-	}
-
-	public void setDniCl(Integer dniCl) {
-		this.dniCl = dniCl;
-	}
-
-	public List<Compania> getCompanias() {
-		return companias;
-	}
-
-	public void setCompanias(List<Compania> companias) {
-		this.companias = companias;
-	}
 
 }

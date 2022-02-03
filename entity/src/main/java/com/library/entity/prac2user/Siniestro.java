@@ -9,8 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
+
 @Entity
-@Table(name = "SINIESTRO") 
+@Table(name = "SINIESTRO")
+@Data
 public class Siniestro implements Serializable {
 
 	private static final long serialVersionUID = 9186095604245156748L;
@@ -37,61 +40,5 @@ public class Siniestro implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "DNI_PERITO")
 	private Perito perito;
-	
-	public Integer getIdSiniestro() {
-		return idSiniestro;
-	}
-
-	public void setIdSiniestro(Integer idSiniestro) {
-		this.idSiniestro = idSiniestro;
-	}
-
-	public String getFechaSiniestro() {
-		return fechaSiniestro;
-	}
-
-	public void setFechaSiniestro(String fechaSiniestro) {
-		this.fechaSiniestro = fechaSiniestro;
-	}
-
-	public String getCausa() {
-		return causa;
-	}
-
-	public void setCausa(String causa) {
-		this.causa = causa;
-	}
-
-	public String getAceptado() {
-		return aceptado;
-	}
-
-	public void setAceptado(String aceptado) {
-		this.aceptado = aceptado;
-	}
-
-	public Double getIndemnizacion() {
-		return indemnizacion;
-	}
-
-	public void setIndemnizacion(Double indemnizacion) {
-		this.indemnizacion = indemnizacion;
-	}
-
-	public Integer getNumeroPoliza() {
-		return numeroPoliza;
-	}
-
-	public void setNumeroPoliza(Integer numeroPoliza) {
-		this.numeroPoliza = numeroPoliza;
-	}
-
-	public Perito getPerito() {
-		return perito;
-	}
-
-	public void setPerito(Perito perito) {
-		this.perito = perito;
-	}
 
 }

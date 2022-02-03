@@ -3,6 +3,7 @@ package com.prac2.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,15 +38,8 @@ public class CompaniaService implements CompaniaInterface {
 	}
 	
 	private Compania convertirCompaniaDtoACompania(CompaniaDto companiaDto) {
-		Compania compania = new Compania();
-		compania.setNombreCompania(companiaDto.getNombreCompania());
-		compania.setClaseVia(companiaDto.getClaseVia());
-		compania.setNumeroVia(companiaDto.getNumeroVia());
-		compania.setCodPostal(companiaDto.getCodPostal());
-		compania.setTelefonoContratacion(companiaDto.getTelefonoContratacion());
-		compania.setTelefonoSiniestro(companiaDto.getTelefonoSiniestro());
-		compania.setNota(companiaDto.getNota());
-		return compania;
+		ModelMapper mp = new ModelMapper();
+		return mp.map(companiaDto, Compania.class);
 	}
 
 }

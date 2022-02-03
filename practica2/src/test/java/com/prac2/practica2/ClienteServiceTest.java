@@ -6,10 +6,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Timeout;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -41,6 +39,7 @@ class ClienteServiceTest {
 		ClienteDto clienteDto = new ClienteDto();
 		Cliente cliente = clienteService.guardar(clienteDto);
 		assertNotNull(cliente, "El cliente no se guardó");
+		clienteService.eliminarCliente(cliente.getDniCl());
 	}
 	
 	@Test
@@ -61,6 +60,7 @@ class ClienteServiceTest {
 			cliente.setDniCl(0);
 			clienteService.guardarCliente(cliente);
 			assert(true);
+			clienteService.eliminarCliente(cliente.getDniCl());
 		}
 		catch (Exception ex) {
 			fail("Dio error: " + ex.getMessage());
@@ -79,7 +79,6 @@ class ClienteServiceTest {
 	}
 	
 	@Test
-	@Timeout(value = 500, unit = TimeUnit.MILLISECONDS)
 	void eliminarCliente() {
 		try {
 			clienteService.eliminarCliente(0);

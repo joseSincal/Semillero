@@ -3,6 +3,7 @@ package com.prac2.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,14 +38,7 @@ public class SeguroService implements SeguroInterface {
 	}	
 	
 	private Seguro convertirSerguroDtoASeguro(SeguroDto seguroDto) {
-		Seguro seguro = new Seguro();
-		seguro.setNumeroPoliza(seguroDto.getNumeroPoliza());
-		seguro.setRamo(seguroDto.getRamo());
-		seguro.setFechaInicio(seguroDto.getFechaInicio());
-		seguro.setFechaVencimiento(seguroDto.getFechaVencimiento());
-		seguro.setCondicionParticular(seguroDto.getCondicionParticular());
-		seguro.setObservacion(seguroDto.getObservacion());
-		seguro.setDniCl(seguroDto.getDniCl());
-		return seguro;
+		ModelMapper mp = new ModelMapper();
+		return mp.map(seguroDto, Seguro.class);
 	}
 }

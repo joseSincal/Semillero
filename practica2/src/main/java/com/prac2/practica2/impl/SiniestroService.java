@@ -3,6 +3,7 @@ package com.prac2.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -81,13 +82,7 @@ public class SiniestroService implements SiniestroInterface {
 	}
 	
 	private Siniestro convertirSiniestroDtoASiniestro(SiniestroDto siniestroDto) {
-		Siniestro siniestro = new Siniestro();
-		siniestro.setIdSiniestro(siniestroDto.getIdSiniestro());
-		siniestro.setFechaSiniestro(siniestroDto.getFechaSiniestro());
-		siniestro.setCausa(siniestroDto.getCausa());
-		siniestro.setAceptado(siniestroDto.getAceptado());
-		siniestro.setIndemnizacion(siniestroDto.getIndemnizacion());
-		siniestro.setNumeroPoliza(siniestroDto.getNumeroPoliza());
-		return siniestro;
+		ModelMapper mp = new ModelMapper();
+		return mp.map(siniestroDto, Siniestro.class);
 	}
 }

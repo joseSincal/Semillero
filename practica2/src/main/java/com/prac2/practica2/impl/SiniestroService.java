@@ -7,9 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.library.entity.prac2user.Perito;
-import com.library.entity.prac2user.Siniestro;
 import com.prac2.practica2.dto.SiniestroDto;
+import com.prac2.practica2.entity.Perito;
+import com.prac2.practica2.entity.Siniestro;
 import com.prac2.practica2.repository.PeritoRepository;
 import com.prac2.practica2.repository.SiniestroRepository;
 import com.prac2.practica2.ws.SiniestroInterface;

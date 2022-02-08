@@ -7,8 +7,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.library.entity.prac2user.CompaniaSeguro;
 import com.prac2.practica2.dto.CompaniaSeguroDto;
+import com.prac2.practica2.entity.CompaniaSeguro;
 import com.prac2.practica2.repository.CompaniaSeguroRepository;
 import com.prac2.practica2.ws.CompaniaSeguroInterface;
 

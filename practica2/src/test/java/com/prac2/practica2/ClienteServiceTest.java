@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.library.entity.prac2user.Cliente;
 import com.prac2.practica2.dto.ClienteDto;
+import com.prac2.practica2.entity.Cliente;
 import com.prac2.practica2.impl.ClienteService;
 
 @SpringBootTest

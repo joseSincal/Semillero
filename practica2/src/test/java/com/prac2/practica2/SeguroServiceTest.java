@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.library.entity.prac2user.Seguro;
 import com.prac2.practica2.dto.SeguroDto;
+import com.prac2.practica2.entity.Seguro;
 import com.prac2.practica2.impl.SeguroService;
 
 @SpringBootTest

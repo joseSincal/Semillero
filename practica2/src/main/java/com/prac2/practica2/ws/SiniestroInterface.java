@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.library.entity.prac2user.Siniestro;
 import com.prac2.practica2.dto.SiniestroDto;
+import com.prac2.practica2.entity.Siniestro;
 
 @RestController
 @RequestMapping(path = "/siniestro")

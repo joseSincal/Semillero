@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.library.entity.prac2user.Perito;
 import com.prac2.practica2.dto.PeritoDto;
+import com.prac2.practica2.entity.Perito;
 import com.prac2.practica2.impl.PeritoService;
 import com.prac2.practica2.impl.SiniestroService;
 

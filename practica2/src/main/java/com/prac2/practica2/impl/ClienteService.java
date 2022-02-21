@@ -6,6 +6,9 @@ import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.ClienteDto;
@@ -75,6 +78,18 @@ public class ClienteService implements ClienteServiceInterface {
 	@Override
 	public List<Map<String, Object>> buscarCliente(Integer dniCl) {
 		return catalogoService.buscarCliente(dniCl);
+	}
+
+	@Override
+	public Page<Cliente> buscarPaginable(int pagina, int cantidad) {
+		Pageable pageable = PageRequest.of(pagina, cantidad);
+		return clienteRepository.findAll(pageable);
+	}
+
+	@Override
+	public Page<Cliente> buscarPaginable(String apellido, int pagina, int cantidad) {
+		Pageable pageable = PageRequest.of(pagina, cantidad);
+		return clienteRepository.findByApellido1OrApellido2(pageable, apellido, apellido);
 	}
 
 }

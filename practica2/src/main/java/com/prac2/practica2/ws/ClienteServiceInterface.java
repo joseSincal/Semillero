@@ -3,6 +3,8 @@ package com.prac2.practica2.ws;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +26,14 @@ public interface ClienteServiceInterface {
 	@GetMapping(path = "/buscar")
 	public List<Cliente> buscar();
 	
-	@GetMapping(path = "/buscar/por/apellidos/{apellido}")
+	@GetMapping(path = "/buscar/Pageable/{pagina}/{cantidad}")
+	public Page<Cliente> buscarPaginable(@PathVariable int pagina, @PathVariable int cantidad);
+	
+	@GetMapping(path = "/buscar/por/apellidos/Pageable/{apellido}")
 	public List<Cliente> buscar(@PathVariable String apellido);
+	
+	@GetMapping(path = "/buscar/por/apellidos/Pageable/{apellido}/{pagina}/{cantidad}")
+	public Page<Cliente> buscarPaginable(@PathVariable String apellido, @PathVariable int pagina, @PathVariable int cantidad);
 	
 	@PostMapping(path = "/guardar")
 	public Cliente guardar(@RequestBody ClienteDto clienteDto);

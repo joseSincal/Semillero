@@ -19,7 +19,7 @@ public class CatalogoService {
 	
 	private static final String DNICL = "dniCl";
 	
-	public void guardarCliente(ClienteDto clienteDto) {
+	public int guardarCliente(ClienteDto clienteDto) {
 		String query = "insert into CLIENTE(DNI_CL, NOMBRE_CL, APELLIDO_1, APELLIDO_2, CLASE_VIA, NOMBRE_VIA,"
 				+ "NUMERO_VIA, COD_POSTAL, CIUDAD, TELEFONO, OBSERVACION) values(:dniCl, :nombreCl, :apellido1, :apellido2,"
 				+ ":claseVia, :nombreVia, :numeroVia, :codPostal, :ciudad, :telefono, :observacion)";
@@ -30,7 +30,7 @@ public class CatalogoService {
 				.addValue("numeroVia", clienteDto.getNumeroVia()).addValue("codPostal", clienteDto.getCodPostal())
 				.addValue("ciudad", clienteDto.getCiudad()).addValue("telefono", clienteDto.getTelefono())
 				.addValue("observacion", clienteDto.getObservacion());
-		namedParameterJdbcTemplate.update(query, sqlParameterSource);
+		return namedParameterJdbcTemplate.update(query, sqlParameterSource);
 	}
 	
 	public void cambiarNombreCliente(Integer dniCl, String nombre) {

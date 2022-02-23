@@ -61,7 +61,7 @@ class PeritoServiceTest {
 	void guardar() {
 		PeritoDto peritoDto = new PeritoDto();
 		peritoDto.setDniPerito(0);
-		Perito perito = peritoService.guardar(peritoDto);
+		Perito perito = peritoService.guardar(peritoDto).getBody();
 		assertEquals(0, perito.getDniPerito());
 	}
 	

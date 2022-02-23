@@ -29,7 +29,7 @@ class CompaniaSeguroServiceTest {
 	void guardar() {
 		CompaniaSeguroDto companiaSeguroDto = new CompaniaSeguroDto();
 		companiaSeguroDto.setId(0);
-		CompaniaSeguro companiaSeguro = companiaSeguroService.guardar(companiaSeguroDto);
+		CompaniaSeguro companiaSeguro = companiaSeguroService.guardar(companiaSeguroDto).getBody();
 		assertNotNull(companiaSeguro, "No se está guardando el detalle");
 	}
 	

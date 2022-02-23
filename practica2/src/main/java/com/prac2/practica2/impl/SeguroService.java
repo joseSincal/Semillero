@@ -3,8 +3,11 @@ package com.prac2.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.SeguroDto;
@@ -18,15 +21,22 @@ public class SeguroService implements SeguroInterface {
 	@Autowired
 	SeguroRepository seguroRepository;
 	
+	private static final Log LOG = LogFactory.getLog(SeguroService.class);
+	
 	@Override
 	public List<Seguro> buscar() {
 		return seguroRepository.findAll();
 	}
 	
 	@Override
-	public Seguro guardar(SeguroDto seguroDto) {
+	public ResponseEntity<Seguro> guardar(SeguroDto seguroDto) {
 		Seguro seguro = convertirSerguroDtoASeguro(seguroDto);
-		return seguroRepository.save(seguro);
+		try {
+			return ResponseEntity.ok().body(seguroRepository.save(seguro));
+		} catch(Exception ex) {
+			LOG.error("HUBO UN ERROR EN PERSISTENCIA DE DATOS");
+			return ResponseEntity.internalServerError().body(null);
+		}
 	}
 
 	@Override

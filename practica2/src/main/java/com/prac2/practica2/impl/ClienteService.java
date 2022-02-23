@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.ClienteDto;
@@ -26,6 +29,8 @@ public class ClienteService implements ClienteServiceInterface {
 	@Autowired
 	CatalogoService catalogoService;
 	
+	private static final Log LOG = LogFactory.getLog(ClienteService.class);
+	
 	@Override
 	public List<Cliente> buscar() {
 		return clienteRepository.findAll();
@@ -37,9 +42,14 @@ public class ClienteService implements ClienteServiceInterface {
 	}
 	
 	@Override
-	public Cliente guardar(ClienteDto clienteDto) {
+	public ResponseEntity<Cliente> guardar(ClienteDto clienteDto) {
 		Cliente cliente = convertirClienteDtoACliente(clienteDto);
-		return clienteRepository.save(cliente);
+		try {
+			return ResponseEntity.ok().body(clienteRepository.save(cliente));
+		} catch(Exception ex) {
+			LOG.error("HUBO UN ERROR EN PERSISTENCIA DE DATOS: "+ ex);
+			return ResponseEntity.internalServerError().body(null);
+		}
 	}
 
 	@Override
@@ -56,8 +66,14 @@ public class ClienteService implements ClienteServiceInterface {
 	}
 
 	@Override
-	public void guardarCliente(ClienteDto clienteDto) {
-		catalogoService.guardarCliente(clienteDto);
+	public ResponseEntity<Integer> guardarCliente(ClienteDto clienteDto) {
+		try {
+			return ResponseEntity.ok().body(catalogoService.guardarCliente(clienteDto));
+		} catch(Exception ex) {
+			LOG.error("HUBO UN ERROR DE PERSISTENCIA DE DATOS: " + ex);
+			return ResponseEntity.internalServerError().body(null);
+		}
+		
 	}
 
 	@Override

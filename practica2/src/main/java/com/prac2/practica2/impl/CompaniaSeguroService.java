@@ -3,8 +3,11 @@ package com.prac2.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.CompaniaSeguroDto;
@@ -18,15 +21,22 @@ public class CompaniaSeguroService implements CompaniaSeguroInterface {
 	@Autowired
 	CompaniaSeguroRepository companiaSeguroRepository;
 	
+	private static final Log LOG = LogFactory.getLog(CompaniaSeguroService.class);
+	
 	@Override
 	public List<CompaniaSeguro> buscar() {
 		return companiaSeguroRepository.findAll();
 	}
 	
 	@Override
-	public CompaniaSeguro guardar(CompaniaSeguroDto companiaSeguroDto) {
+	public ResponseEntity<CompaniaSeguro> guardar(CompaniaSeguroDto companiaSeguroDto) {
 		CompaniaSeguro companiaSeguro = convertirCompaniaSeguroDtoACompaniaSeguro(companiaSeguroDto);
-		return companiaSeguroRepository.save(companiaSeguro);
+		try {
+			return ResponseEntity.ok().body(companiaSeguroRepository.save(companiaSeguro));
+		} catch(Exception ex) {
+			LOG.error("HUBO UN ERROR DE PERSISTENCIA DE DATOS");
+			return ResponseEntity.internalServerError().body(null);
+		}
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.prac2.practica2.ws;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,6 @@ import com.prac2.practica2.dto.SeguroDto;
 public interface FuncionServiceInterface {
 	
 	@PostMapping(path = "/crear/poliza")
-	public int crearPoliza(@RequestBody SeguroDto seguroDto);
+	public ResponseEntity<Integer> crearPoliza(@RequestBody SeguroDto seguroDto);
 
 }

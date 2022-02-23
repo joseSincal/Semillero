@@ -29,7 +29,7 @@ class CompaniaServiceTest {
 	void guardar() {
 		CompaniaDto companiaDto = new CompaniaDto();
 		companiaDto.setNombreCompania("test");
-		Compania compania = companiaService.guardar(companiaDto);
+		Compania compania = companiaService.guardar(companiaDto).getBody();
 		assertNotNull(compania, "No se está guardando la compania");
 	}
 	

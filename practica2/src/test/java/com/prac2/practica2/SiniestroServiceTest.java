@@ -64,7 +64,7 @@ class SiniestroServiceTest {
 	void guardar() {
 		SiniestroDto siniestroDto = new SiniestroDto();
 		siniestroDto.setIdSiniestro(0);
-		Siniestro siniestro = siniestroService.guardar(siniestroDto);
+		Siniestro siniestro = siniestroService.guardar(siniestroDto).getBody();
 		assertNotNull(siniestro, "El siniestro no se guardó");
 	}
 	

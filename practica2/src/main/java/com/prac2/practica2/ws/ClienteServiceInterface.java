@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,13 +36,13 @@ public interface ClienteServiceInterface {
 	public Page<Cliente> buscarPaginable(@PathVariable String apellido, @PathVariable int pagina, @PathVariable int cantidad);
 	
 	@PostMapping(path = "/guardar")
-	public Cliente guardar(@RequestBody ClienteDto clienteDto);
+	public ResponseEntity<Cliente> guardar(@RequestBody ClienteDto clienteDto);
 	
 	@DeleteMapping(path = "/eliminar/{dni}")
 	public void eliminar(@PathVariable int dni);
 	
 	@PostMapping(path = "/guardar2")
-	public void guardarCliente(@RequestBody ClienteDto clienteDto);
+	public ResponseEntity<Integer> guardarCliente(@RequestBody ClienteDto clienteDto);
 	
 	@PutMapping(path = "/cambiar/nombre/{dniCl}/{nombre}")
 	public void cambiarNombreCliente(@PathVariable Integer dniCl, @PathVariable String nombre);

@@ -37,7 +37,10 @@ class ClienteServiceTest {
 	@Test
 	void guardar() {
 		ClienteDto clienteDto = new ClienteDto();
-		Cliente cliente = clienteService.guardar(clienteDto);
+		clienteDto.setNombreCl("test");
+		clienteDto.setApellido1("test");
+		clienteDto.setTelefono(0);
+		Cliente cliente = clienteService.guardar(clienteDto).getBody();
 		assertNotNull(cliente, "El cliente no se guardó");
 		clienteService.eliminarCliente(cliente.getDniCl());
 	}

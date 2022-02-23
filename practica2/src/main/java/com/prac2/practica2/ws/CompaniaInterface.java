@@ -2,6 +2,7 @@ package com.prac2.practica2.ws;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public interface CompaniaInterface {
 	public List<Compania> buscar();
 	
 	@PostMapping(path = "/guardar")
-	public Compania guardar(@RequestBody CompaniaDto companiaDto);
+	public ResponseEntity<Compania> guardar(@RequestBody CompaniaDto companiaDto);
 	
 	@DeleteMapping(path = "/eliminar/{nombre}")
 	public void eliminar(@PathVariable String nombre);

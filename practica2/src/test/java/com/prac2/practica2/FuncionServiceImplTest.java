@@ -25,7 +25,7 @@ class FuncionServiceImplTest {
 		SeguroDto seguroDto = new SeguroDto();
 		
 		seguroDto.setNumeroPoliza(0);
-		int numeroPoliza = funcionServiceImpl.crearPoliza(seguroDto);
+		int numeroPoliza = funcionServiceImpl.crearPoliza(seguroDto).getBody();
 		assertEquals(0, numeroPoliza, "No se está insertando");
 	}
 

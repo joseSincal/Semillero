@@ -3,6 +3,7 @@ package com.prac2.practica2.ws;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public interface SiniestroInterface {
 	public List<Siniestro> buscarPoliza(@PathVariable String fecha, @PathVariable String estado);
 
 	@PostMapping(path = "/guardar")
-	public Siniestro guardar(@RequestBody SiniestroDto siniestroDto);
+	public ResponseEntity<Siniestro> guardar(@RequestBody SiniestroDto siniestroDto);
 
 	@DeleteMapping(path = "/eliminar/{id}")
 	public void eliminar(@PathVariable int id);

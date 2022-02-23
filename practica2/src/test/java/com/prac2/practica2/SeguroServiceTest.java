@@ -29,7 +29,7 @@ class SeguroServiceTest {
 	void guardar() {
 		SeguroDto seguroDto = new SeguroDto();
 		seguroDto.setNumeroPoliza(0);
-		Seguro seguro = seguroService.guardar(seguroDto);
+		Seguro seguro = seguroService.guardar(seguroDto).getBody();
 		assertNotNull(seguro, "El seguro no se guardó");
 	}
 	

@@ -4,8 +4,11 @@ package com.prac2.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.SiniestroDto;
@@ -23,6 +26,8 @@ public class SiniestroService implements SiniestroInterface {
 
 	@Autowired
 	PeritoRepository peritoRepository;
+	
+	private static final Log LOG = LogFactory.getLog(SiniestroService.class);
 
 	@Override
 	public List<Siniestro> buscar() {
@@ -55,9 +60,14 @@ public class SiniestroService implements SiniestroInterface {
 	}
 
 	@Override
-	public Siniestro guardar(SiniestroDto siniestroDto) {
+	public ResponseEntity<Siniestro> guardar(SiniestroDto siniestroDto) {
 		Siniestro siniestro = convertirSiniestroDtoASiniestro(siniestroDto);
-		return siniestroRepository.save(siniestro);
+		try {
+			return ResponseEntity.ok().body(siniestroRepository.save(siniestro));
+		} catch(Exception ex) {
+			LOG.error("HUBO UN ERROR DE PERSISTENIA DE DATOS: " + ex);
+			return ResponseEntity.internalServerError().body(null);
+		}
 	}
 
 	@Override

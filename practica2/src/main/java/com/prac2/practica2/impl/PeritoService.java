@@ -3,8 +3,11 @@ package com.prac2.practica2.impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.PeritoDto;
@@ -17,6 +20,8 @@ public class PeritoService implements PeritoInterface {
 	
 	@Autowired
 	PeritoRepository peritoRepository;
+	
+	private static final Log LOG = LogFactory.getLog(PeritoService.class);
 	
 	@Override
 	public List<Perito> buscar() {
@@ -44,9 +49,14 @@ public class PeritoService implements PeritoInterface {
 	}
 	
 	@Override
-	public Perito guardar(PeritoDto peritoDto) {
+	public ResponseEntity<Perito> guardar(PeritoDto peritoDto) {
 		Perito perito = convertirPeritoDtoAPerito(peritoDto);
-		return peritoRepository.save(perito);
+		try {
+			return ResponseEntity.ok().body(peritoRepository.save(perito));
+		} catch(Exception ex) {
+			LOG.error("HUBO UN ERROR DE PERSISTENCIA DE DATOS: " + ex);
+			return ResponseEntity.internalServerError().body(null);
+		}
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.SiniestroDto;
+import com.prac2.practica2.dto.SiniestroPeritoDto;
 import com.prac2.practica2.entity.Perito;
 import com.prac2.practica2.entity.Siniestro;
 import com.prac2.practica2.repository.PeritoRepository;
@@ -100,5 +101,10 @@ public class SiniestroService implements SiniestroInterface {
 	private Siniestro convertirSiniestroDtoASiniestro(SiniestroDto siniestroDto) {
 		ModelMapper mp = new ModelMapper();
 		return mp.map(siniestroDto, Siniestro.class);
+	}
+
+	@Override
+	public List<SiniestroPeritoDto> buscarPorCausa(String causa) {
+		return siniestroRepository.buscarPorCausa(causa);
 	}
 }

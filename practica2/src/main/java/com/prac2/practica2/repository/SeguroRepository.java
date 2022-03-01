@@ -7,5 +7,5 @@ import com.prac2.practica2.entity.Seguro;
 
 @Repository("seguroRepository")
 public interface SeguroRepository extends JpaRepository<Seguro, Integer> {
-
+	
 }

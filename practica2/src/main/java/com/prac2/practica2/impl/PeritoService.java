@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import com.prac2.practica2.dto.PeritoDto;
+import com.prac2.practica2.dto.PeritoSiniestroCantidadDto;
 import com.prac2.practica2.entity.Perito;
 import com.prac2.practica2.repository.PeritoRepository;
 import com.prac2.practica2.ws.PeritoInterface;
@@ -70,6 +71,16 @@ public class PeritoService implements PeritoInterface {
 	private Perito convertirPeritoDtoAPerito(PeritoDto peritoDto) {
 		ModelMapper mp = new ModelMapper();
 		return mp.map(peritoDto, Perito.class);
+	}
+
+	@Override
+	public List<Perito> obtenerPorCiudad(String ciudad) {
+		return peritoRepository.buscarPorCiudad(ciudad);
+	}
+
+	@Override
+	public List<PeritoSiniestroCantidadDto> buscarSiniestrosAtendidos() {
+		return peritoRepository.buscarSiniestrosAtendidos();
 	}
 	
 }

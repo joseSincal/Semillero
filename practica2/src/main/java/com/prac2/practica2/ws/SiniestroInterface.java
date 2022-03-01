@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prac2.practica2.dto.SiniestroDto;
+import com.prac2.practica2.dto.SiniestroPeritoDto;
 import com.prac2.practica2.entity.Siniestro;
 
 @RestController
@@ -49,7 +50,10 @@ public interface SiniestroInterface {
 	@PutMapping(path = "/guardar/{id}/agregarPerito/{dni}")
 	public String agregarPerito(@PathVariable int id, @PathVariable int dni);
 
-	@GetMapping(value = "/buscar/por/indemnizacion/despues/{indemnizacion}")
+	@GetMapping(path = "/buscar/por/indemnizacion/despues/{indemnizacion}")
 	public List<Siniestro> buscarIndermizacionDespues(@PathVariable Double indemnizacion);
+	
+	@GetMapping(path = "/buscar/por/causa/{causa}")
+	public List<SiniestroPeritoDto> buscarPorCausa(@PathVariable String causa);
 
 }

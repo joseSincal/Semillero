@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prac2.practica2.dto.PeritoDto;
+import com.prac2.practica2.dto.PeritoSiniestroCantidadDto;
 import com.prac2.practica2.entity.Perito;
 
 @RestController
@@ -40,5 +41,11 @@ public interface PeritoInterface {
 	
 	@DeleteMapping(path = "/eliminar/{dni}")
 	public void eliminar(@PathVariable int dni);
+	
+	@GetMapping(path = "/buscar/por/ciudad/{ciudad}")
+	public List<Perito> obtenerPorCiudad(@PathVariable String ciudad);
+	
+	@GetMapping(path = "/buscar/siniestro/atendidos")
+	public List<PeritoSiniestroCantidadDto> buscarSiniestrosAtendidos();
 
 }

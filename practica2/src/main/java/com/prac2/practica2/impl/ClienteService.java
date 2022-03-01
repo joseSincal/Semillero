@@ -108,4 +108,10 @@ public class ClienteService implements ClienteServiceInterface {
 		return clienteRepository.findByApellido1OrApellido2(pageable, apellido, apellido);
 	}
 
+	@Override
+	public Page<Cliente> buscarPaginableQuery(int pagina, int cantidad) {
+		Pageable pageable = PageRequest.of(pagina, cantidad);
+		return clienteRepository.buscarPaginaCliente(pageable);
+	}
+
 }

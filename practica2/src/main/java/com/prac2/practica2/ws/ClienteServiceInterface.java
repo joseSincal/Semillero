@@ -55,4 +55,8 @@ public interface ClienteServiceInterface {
 	
 	@GetMapping(path = "/buscar/{dniCl}")
 	public List<Map<String, Object>> buscarCliente(@PathVariable Integer dniCl);
+	
+	@GetMapping(path = "/buscar/Pageable/query/{pagina}/{cantidad}")
+	public Page<Cliente> buscarPaginableQuery(@PathVariable int pagina, @PathVariable int cantidad);
+	
 }
